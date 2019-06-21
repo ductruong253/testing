@@ -1,0 +1,90 @@
+<% include ../partials/header %>
+<script>
+  var item_count = 1;
+
+  function addItem() {
+    var div = document.createElement('div');
+    div.className = 'quoted_item';
+    div.innerHTML = '<input type="text" name="quoted_item[' + item_count + '][item]" placeholder="Quote Item"><input type="text" name="quoted_item[' + item_count + '].customer_part_number" placeholder="Customer part number">';
+
+    document.getElementById('quoted_item').appendChild(div);
+    item_count++
+  }
+
+  function removeItem() {
+    var select = document.getElementById('quoted_item');
+    document.getElementById('quoted_item').removeChild(select.lastChild);
+    item_count--
+  }
+</script>
+
+<div class="container">
+  <div class="row">
+
+    <h1 style="text-align: center">Create new Project</h1>
+    <div style="width: 30%; margin: 30px auto">
+
+      <form class="" action="/projects" method="post">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">APQP information</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <input class="form-control" type="text" name="apqp_number" placeholder="APQP number (APQP#####)" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="customer" placeholder="Customer (Ventra)" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="customer_code" placeholder="Customer Code (VENT09)" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="product_class" placeholder="Product Class (Wire Harness/Thermo Protector)" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="industrial_class" placeholder="Industrial class" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="quote_num" placeholder="Quote number (Q#####)" value="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" name="description" placeholder="Description" value="">
+            </div>
+          </div>
+        </div>
+        <div class="">
+          <button class="btn btn-lg btn-success btn-block" onclick="addItem()">Add</button>
+          <button class="btn btn-lg btn-warning btn-block" onclick="removeItem()">Remove</button>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Item 1</h3>
+          </div>
+          <div class="panel-body">
+            <div id="form-group">
+              <input class="form-control" type="text" name="quoted_item[0][item]" placeholder="Quote Item (-###)" value="">
+              <input class="form-control" type="text" name="quoted_item[0][customer_part_number]" placeholder="Customer part number" value="">
+            </div>
+
+          </div>
+        </div>
+        <div id="quoted_item"></div>
+
+          <div class="form-group">
+            <button class="btn btn-lg btn-primary btn-block" type="submit" name="">Submit</button>
+
+          </div>
+
+      </form>
+
+    </div>
+
+    <div class="">
+      <a href="/projects">Get back</a>
+    </div>
+  </div>
+
+</div>
+
+<% include ../partials/footer %>

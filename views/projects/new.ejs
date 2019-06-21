@@ -1,0 +1,122 @@
+<% include ../partials/header %>
+
+<script type="text/javascript">
+  var item_count = 1;
+
+  function addItem() {
+    var div = document.createElement('div');
+    div.className = 'quoted_items_list';
+    div.innerHTML = '<div class="row">' +
+      '<div class="col-2">' +
+      '<input class="input-group form-control" type="text" id="quote_item' + item_count + '" onclick="get_quote_code(this.id)" name="quote_item[' + item_count + '][item]" placeholder="Quote Item">' +
+      '</div>' +
+      '<div class="col-3">' +
+      '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][customer_part_number]" placeholder="Customer part number">' +
+      '</div>' +
+      '</div>';
+    document.getElementById('quoted_items_list').appendChild(div);
+    item_count++
+  }
+
+  function removeItem() {
+    var select = document.getElementById('quoted_items_list');
+    document.getElementById('quoted_items_list').removeChild(select.lastChild);
+    item_count--
+  }
+
+  function get_quote_code(item_id) {
+    var quote_code = document.getElementById("apqp_quote_number")
+    console.log(quote_code.value);
+    console.log(item_id);
+    document.getElementById(item_id).value = quote_code.value + '-'
+  }
+</script>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-1 bg-danger">
+      <h3>Hello world!</h3>
+    </div>
+    <div class="col-11 bg-warning">
+      <h1 style="text-align: center">Create new Project</h1>
+      <form autocomplete="off" class="" action="/projects" method="post">
+        <div class="row">
+          <div class="col-3 bg-light">
+            <div class="card">
+              <div class="card-header">
+                <h3>APQP information</h3>
+              </div>
+              <div class="card-body">
+
+                <p>APQP Number</p>
+                <p><input class="input-group form-control" type="text" name="apqp_number" placeholder="Ex: 00123" value=""></p>
+                <p>Customer</p>
+                <p><input class="input-group form-control" type="text" name="apqp_customer" placeholder="Ex: VENTRA" value=""></p>
+                <p>Customer Code</p>
+                <p><input class="input-group form-control" type="text" name="apqp_customer_code" placeholder="Ex: VENT09" value=""></p>
+                <p>Product class</p>
+                <p><input class="input-group form-control" list="prd_cls" name="apqp_prod_class" value="" required>
+                  <datalist id="prd_cls">
+                    <option value="Wire Harness"></option>
+                    <option value="Thermo Protector"></option>
+                  </datalist>
+                </p>
+                <p>Industrial Class</p>
+                <p><input class="input-group form-control" list="ind_cls" name="apqp_indu_class" value="" required>
+                  <datalist id="ind_cls">
+                    <option value="Automotive"></option>
+                    <option value="Appliance"></option>
+                    <option value="Other"></option>
+                  </datalist>
+                </p>
+                <p>Quote Number</p>
+                <p><input class="input-group form-control" type="text" id="apqp_quote_number" name="apqp_quote_number" placeholder="Ex: Q21259" value=""></p>
+                <p><button class="btn btn-success" type="button" name="button" onclick="addItem()">Add</button>
+                  <button class="btn btn-warning" type="button" name="button" onclick="removeItem()">Remove</button>
+                  <button class="btn btn-primary" type="submit" name="button">Submit</button>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-9 bg-secondary">
+            <div class="card">
+              <div class="card-header">
+                <h3>Product</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-2">
+                    <input class="input-group form-control" type="text" id="quote_item0" name="quote_item[0][item]" onclick="get_quote_code(this.id)" placeholder="Quote Item" value="">
+                  </div>
+                  <div class="col-2">
+                    <input class="input-group form-control" type="text" name="quote_item[0][customer_part_number]" placeholder="Cust. part number" value="">
+                  </div>
+                  <div class="col-2">
+                    <input class="input-group form-control" type="text" name="quote_item[0][customer_part_rev]" placeholder="Revision" value="">
+                  </div>
+                  <div class="col-2">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="quote_item[0][mold]" value="True">
+                      <label class="form-check-label" for="inlineCheckbox2">Molded Product</label>
+                    </div>
+
+                  </div>
+                  <div class="col-2">
+                    <p><input class="input-group form-control" list="user_name" name="quote_item[0][pic]" value="">
+                      <datalist id="user_name">
+                        <option value="17125 - Truong"></option>
+                        <option value="18114 - Dai"></option>
+                      </datalist>
+                    </p>
+                  </div>
+                </div>
+                <div id="quoted_items_list">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<% include ../partials/footer %>
