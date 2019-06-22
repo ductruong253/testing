@@ -10,9 +10,26 @@
       '<div class="col-2">' +
       '<input class="input-group form-control" type="text" id="quote_item' + item_count + '" onclick="get_quote_code(this.id)" name="quote_item[' + item_count + '][item]" placeholder="Quote Item">' +
       '</div>' +
-      '<div class="col-3">' +
-      '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][customer_part_number]" placeholder="Customer part number">' +
+      '<div class="col-2">' +
+      '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][customer_part_number]" placeholder="Cust. part number">' +
       '</div>' +
+      '<div class="col-2">'+
+        '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][customer_part_rev]" placeholder="Revision" value="">'+
+      '</div>'+
+      '<div class="col-2">'+
+        '<div class="form-check form-check-inline">'+
+          '<input class="form-check-input" type="checkbox" name="quote_item[' + item_count + '][mold]" value="True">'+
+          '<label class="form-check-label" for="inlineCheckbox2">Molded Product</label>'+
+        '</div>'+
+      '</div>'+
+      '<div class="col-2">'+
+        '<p><input class="input-group form-control" list="user_name" name="quote_item[' + item_count + '][pic]" value="">'+
+          '<datalist id="user_name">'+
+            '<option value="17125 - Truong"></option>'+
+            '<option value="18114 - Dai"></option>'+
+          '</datalist>'+
+        '</p>'+
+      '</div>'+
       '</div>';
     document.getElementById('quoted_items_list').appendChild(div);
     item_count++
@@ -98,7 +115,6 @@
                       <input class="form-check-input" type="checkbox" name="quote_item[0][mold]" value="True">
                       <label class="form-check-label" for="inlineCheckbox2">Molded Product</label>
                     </div>
-
                   </div>
                   <div class="col-2">
                     <p><input class="input-group form-control" list="user_name" name="quote_item[0][pic]" value="">
