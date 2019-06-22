@@ -8,10 +8,11 @@ var quotedPartSchema = new mongoose.Schema({
   quote_num: String,
   quote_item: String,
   customer_part_number: String,
+  assigned_cd: String,
   mold: Boolean,
-  inchaged: [{
+  pic: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "Member"
   }]
 })
 module.exports = mongoose.model('Qpart',quotedPartSchema)
