@@ -13,6 +13,14 @@ var quotedPartSchema = new mongoose.Schema({
   pic: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: "Member"
+  }],
+  datasheet: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"Datasheet"
+  }],
+  purchase_order: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref:"PurchaseOrder"
   }]
 })
 module.exports = mongoose.model('Qpart',quotedPartSchema)

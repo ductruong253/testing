@@ -17,17 +17,14 @@
       '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][customer_part_rev]" placeholder="Revision" value="">' +
       '</div>' +
       '<div class="col-2">' +
+      '<input class="input-group form-control" type="text" name="quote_item[' + item_count + '][cd]" placeholder="Thermtrol CD#" value="">' +
+      '</div>' +
+      '<div class="col-2">' +
+      '<p>' +
       '<div class="form-check form-check-inline">' +
       '<input class="form-check-input" type="checkbox" name="quote_item[' + item_count + '][mold]" value="True">' +
       '<label class="form-check-label" for="inlineCheckbox2">Molded Product</label>' +
       '</div>' +
-      '</div>' +
-      '<div class="col-2">' +
-      '<p><input class="input-group form-control" list="user_name" name="quote_item[' + item_count + '][pic]" value="">' +
-      '<datalist id="user_name">' +
-      '<option value="17125 - Truong"></option>' +
-      '<option value="18114 - Dai"></option>' +
-      '</datalist>' +
       '</p>' +
       '</div>' +
       '</div>';
@@ -61,9 +58,9 @@
           <div class="row">
             <div class="col-3 bg-light">
               <p>APQP Number</p>
-              <p><input class="input-group form-control" type="text" name="apqp_number" placeholder="Ex: 00123" value=""></p>
+              <p><input class="input-group form-control" type="text" name="apqp_number" placeholder="Ex: 00123" require pattern="[0-9]{5}" title="Just input 5 APQP number only!" value=""></p>
               <p>Quote Number</p>
-              <p><input class="input-group form-control" type="text" id="apqp_quote_number" name="apqp_quote_number" placeholder="Ex: Q21259" value=""></p>
+              <p><input class="input-group form-control" type="text" id="apqp_quote_number" name="apqp_quote_number" placeholder="Ex: Q21259" required pattern="Q[0-9]{6}" value=""></p>
               <p><button class="btn btn-success" type="button" name="button" onclick="addItem()">Add</button>
                 <button class="btn btn-warning" type="button" name="button" onclick="removeItem()">Remove</button>
                 <button class="btn btn-primary" type="submit" name="button">Submit</button>
@@ -71,9 +68,9 @@
             </div>
             <div class="col-3 bg-light">
               <p>Customer</p>
-              <p><input class="input-group form-control" type="text" name="apqp_customer" placeholder="Ex: VENTRA" value=""></p>
+              <p><input class="input-group form-control" type="text" name="apqp_customer" placeholder="Ex: VENTRA" required value=""></p>
               <p>Customer Code</p>
-              <p><input class="input-group form-control" type="text" name="apqp_customer_code" placeholder="Ex: VENT09" value=""></p>
+              <p><input class="input-group form-control" type="text" name="apqp_customer_code" placeholder="Ex: VENT09" required pattern="[A-Z][0-9]{6}" value=""></p>
             </div>
             <div class="col-3 bg-light">
               <p>Product class</p>
@@ -106,7 +103,7 @@
         <div class="card-body">
           <div class="row">
             <div class="col-2">
-              <input class="input-group form-control" type="text" id="quote_item0" name="quote_item[0][item]" onclick="get_quote_code(this.id)" placeholder="Quote Item" value="">
+              <input class="input-group form-control" type="text" id="quote_item0" name="quote_item[0][item]" onclick="get_quote_code(this.id)" placeholder="Quote Item" required value="">
             </div>
             <div class="col-2">
               <input class="input-group form-control" type="text" name="quote_item[0][customer_part_number]" placeholder="Cust. part number" value="">
@@ -115,17 +112,14 @@
               <input class="input-group form-control" type="text" name="quote_item[0][customer_part_rev]" placeholder="Revision" value="">
             </div>
             <div class="col-2">
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="quote_item[0][mold]" value="True">
-                <label class="form-check-label" for="inlineCheckbox2">Molded Product</label>
-              </div>
+              <input class="input-group form-control" type="text" name="quote_item[0][cd]" placeholder="Thermtrol CD#" value="">
             </div>
             <div class="col-2">
-              <p><input class="input-group form-control" list="user_name" name="quote_item[0][pic]" value="">
-                <datalist id="user_name">
-                  <option value="17125 - Truong"></option>
-                  <option value="18114 - Dai"></option>
-                </datalist>
+              <p>
+                <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="checkbox" name="quote_item[0][mold]" value="True">
+                  <label class="form-check-label" for="inlineCheckbox2">Molded Product</label>
+                </div>
               </p>
             </div>
           </div>
