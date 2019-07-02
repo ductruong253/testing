@@ -60,7 +60,7 @@
               <p>APQP Number</p>
               <p><input class="input-group form-control" type="text" name="apqp_number" placeholder="Ex: 00123" require pattern="[0-9]{5}" title="Just input 5 APQP number only!" value=""></p>
               <p>Quote Number</p>
-              <p><input class="input-group form-control" type="text" id="apqp_quote_number" name="apqp_quote_number" placeholder="Ex: Q21259" required pattern="Q[0-9]{6}" value=""></p>
+              <p><input class="input-group form-control" type="text" id="apqp_quote_number" name="apqp_quote_number" placeholder="Ex: Q21259" required pattern="Q+[0-9]{5}" value=""></p>
               <p><button class="btn btn-success" type="button" name="button" onclick="addItem()">Add</button>
                 <button class="btn btn-warning" type="button" name="button" onclick="removeItem()">Remove</button>
                 <button class="btn btn-primary" type="submit" name="button">Submit</button>
@@ -68,9 +68,9 @@
             </div>
             <div class="col-3 bg-light">
               <p>Customer</p>
-              <p><input class="input-group form-control" type="text" name="apqp_customer" placeholder="Ex: VENTRA" required value=""></p>
+              <p><input class="input-group form-control" style="text-transform: uppercase;" type="text" name="apqp_customer" placeholder="Ex: VENTRA" required value=""></p>
               <p>Customer Code</p>
-              <p><input class="input-group form-control" type="text" name="apqp_customer_code" placeholder="Ex: VENT09" required pattern="[A-Z][0-9]{6}" value=""></p>
+              <p><input class="input-group form-control" style="text-transform: uppercase;" type="text" name="apqp_customer_code" placeholder="Ex: VENT09" required pattern="[A-Z0-9]{6}" value=""></p>
             </div>
             <div class="col-3 bg-light">
               <p>Product class</p>
