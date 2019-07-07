@@ -1,10 +1,7 @@
 var mongoose = require('mongoose');
 
 var quotedPartSchema = new mongoose.Schema({
-  apqp: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "APQP"
-  }],
+  apqp: String,
   quote_item: String,
   customer_part_number: String,
   assigned_cd: String,
