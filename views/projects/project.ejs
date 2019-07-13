@@ -1,4 +1,18 @@
 <% include ../partials/header %>
 
+<div class="container">
+  <header class="jumbotron">
+    <div class="container">
+      <h2 style="margin: 0px 0px 16px">APQP<%=apqp.apqp_number%></h2>
+    </div>
+    <a class="btn btn-primary" href="projects/new_ds">New Datasheet</a>
+  </header>
+</div>
+
+<h1></h1>
+<%apqp.quoted_part.forEach(function(element){%>
+<p><%=element.quote_item%></p>
+
+<%})%>
 
 <% include ../partials/footer %>

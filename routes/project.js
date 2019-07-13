@@ -93,12 +93,21 @@ quote_item_arr.forEach(function (quote_item_element) {
 
 
 router.get('/project/:id',function (req,res) {
-  APQP.findById(req.params.id,function (err, foundAPQP) {
+  APQP.findById(req.params.id).populate('quoted_part').exec(function (err, foundAPQP) {
     if (err) {
       console.log(err);
     }else {
-      res.send(foundAPQP)
+
+      res.render("projects/project", {apqp:foundAPQP})
     }
   })
+})
+
+router.get('/project/new_ds',function (req,res) {
+  if (err) {
+    console.log(err);
+  }else {
+    res.send("New Datasheet Page");
+  }
 })
 module.exports = router
