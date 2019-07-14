@@ -1,1 +1,56 @@
-<h1>This is New Datasheet Page</h1>
+<% include ../partials/header %>
+
+<script type="text/javascript">
+  function defaultDate() {
+    var today = new Date()
+    var dd = today.getDate()
+    var mm = today.getMonth()
+    var yyyy = today.getFullYear()
+    if (dd<10){
+      dd = '0'+dd
+    }
+    if (mm<10){
+      mm = '0'+(mm)
+    }
+    var date_string = (mm) + '/'+ dd + '/' + yyyy
+    document.getElementsByClassName('default-date').value = date_string
+    console.log(typeof date_string)
+    console.log(date_string)
+  }
+</script>
+
+
+<h1>New Datasheet Assignment</h1>
+
+<form class="form-group" action="#" method="post">
+  <label for=""></label>
+  <table class="table" style="text-align:center">
+    <thead>
+      <tr class="row">
+        <th class="col-sm-2" scope="col">Item</th>
+        <th class="col-sm-2" scope="col">Customer Part</th>
+        <th class="col-sm-2" scope="col">Assign to</th>
+        <th class="col-sm-2" scope="col">Input Date</th>
+        <th class="col-sm-2" scope="col">Due date</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <%apqp.quoted_part.forEach(function(element){%>
+      <tr class="row">
+        <td class="col-sm-2"><%=element.quote_item%></td>
+        <td class="col-sm-2"><%=element.customer_part_number%></td>
+        <td class="col-sm-2"><input class="form-control" type="text" name="" value=""></td>
+        <td class="col-sm-2"><input class="form-control" type="date" onclick="defaultDate()" name="default-date" value=""></td>
+        <td class="col-sm-2"><input class="form-control" type="date" name="" value=""></td>
+      </tr>
+      <%})%>
+    </tbody>
+  </table>
+  <input type="submit" class="btn btn-primary" name="" value="Submit">
+</form>
+
+
+
+<% include ../partials/footer %>

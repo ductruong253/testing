@@ -2,6 +2,7 @@ const express = require('express');
 var router = express.Router()
 var APQP = require('../models/apqp');
 var Qpart = require('../models/quoted_part');
+var Datasheet = require('../models/datasheet');
 
 router.get('/projects', function(req, res) {
   APQP.find({}, function(err, allApqps) {
@@ -36,7 +37,7 @@ router.post('/projects', function(req, res) {
     product_class: apqp_prod_class,
     industrial_class: apqp_indu_class
   }
-//Create new APQP
+  //Create new APQP
   APQP.create(new_APQP, function(err, newlyCreatedAPQP) {
     if (err) {
       console.log(err);
@@ -45,69 +46,75 @@ router.post('/projects', function(req, res) {
       res.redirect("/projects")
     }
   })
-// For each quote_item, create quote item in database
+  // For each quote_item, create quote item in database
 
-quote_item_arr.forEach(function (quote_item_element) {
-  if (quote_item_element.mold=="True"){
-    var new_Quote_item ={
-      apqp: new_APQP.apqp_number,
-      quote_item: quote_item_element.item.toUpperCase(),
-      customer_part_number: quote_item_element.customer_part_number.toUpperCase(),
-      assigned_cd: quote_item_element.cd.toUpperCase(),
-      mold: true
+  quote_item_arr.forEach(function(quote_item_element) {
+    if (quote_item_element.mold == "True") {
+      var new_Quote_item = {
+        apqp: new_APQP.apqp_number,
+        quote_item: quote_item_element.item.toUpperCase(),
+        customer_part_number: quote_item_element.customer_part_number.toUpperCase(),
+        assigned_cd: quote_item_element.cd.toUpperCase(),
+        mold: true
+      }
+    } else {
+      var new_Quote_item = {
+        apqp: new_APQP.apqp_number,
+        quote_item: quote_item_element.item.toUpperCase(),
+        customer_part_number: quote_item_element.customer_part_number.toUpperCase(),
+        assigned_cd: quote_item_element.cd.toUpperCase(),
+        mold: false
+      }
     }
-  }else {
-    var new_Quote_item ={
-      apqp: new_APQP.apqp_number,
-      quote_item: quote_item_element.item.toUpperCase(),
-      customer_part_number: quote_item_element.customer_part_number.toUpperCase(),
-      assigned_cd: quote_item_element.cd.toUpperCase(),
-      mold: false
-    }
-  }
-  Qpart.create(new_Quote_item, function (err, newlyCreatedQpart) {
+    Qpart.create(new_Quote_item, function(err, newlyCreatedQpart) {
+      if (err) {
+        console.log(err);
+      } else {
+        //Adding newlyCreatedQpart to APQP
+        APQP.findOne({
+          apqp_number: new_APQP.apqp_number
+        }, function(err, foundAPQP) {
+          if (err) {
+            console.log(err);
+          } else {
+            foundAPQP.quoted_part.push(newlyCreatedQpart)
+            foundAPQP.save(function(err, saved_data) {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(saved_data);
+              }
+            })
+          }
+        })
+      }
+    })
+  })
+
+
+})
+
+
+router.get('/project/:id', function(req, res) {
+  APQP.findById(req.params.id).populate('quoted_part').exec(function(err, foundAPQP) {
     if (err) {
       console.log(err);
-    }else {
-      //Adding newlyCreatedQpart to APQP
-      APQP.findOne({apqp_number: new_APQP.apqp_number}, function (err, foundAPQP) {
-        if (err) {
-          console.log(err);
-        }else {
-          foundAPQP.quoted_part.push(newlyCreatedQpart)
-          foundAPQP.save(function (err, saved_data) {
-            if (err) {
-              console.log(err);
-            }else {
-              console.log(saved_data);
-            }
-          })
-        }
+    } else {
+
+      res.render("projects/project", {
+        apqp: foundAPQP
       })
     }
   })
-})
-
-
-})
-
-
-router.get('/project/:id',function (req,res) {
-  APQP.findById(req.params.id).populate('quoted_part').exec(function (err, foundAPQP) {
+})s
+//New Datasheet request
+router.get('/project/:id/new_ds', function(req, res) {
+  APQP.findById(req.params.id).populate('quoted_part').exec(function(err, foundAPQP) {
     if (err) {
-      console.log(err);
-    }else {
-
-      res.render("projects/project", {apqp:foundAPQP})
+      console.log(err)
+    } else {
+      res.render("projects/new_ds", {apqp: foundAPQP});
     }
   })
-})
-
-router.get('/project/new_ds',function (req,res) {
-  if (err) {
-    console.log(err);
-  }else {
-    res.send("New Datasheet Page");
-  }
 })
 module.exports = router
