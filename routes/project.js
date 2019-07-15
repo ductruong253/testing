@@ -47,7 +47,6 @@ router.post('/projects', function(req, res) {
     }
   })
   // For each quote_item, create quote item in database
-
   quote_item_arr.forEach(function(quote_item_element) {
     if (quote_item_element.mold == "True") {
       var new_Quote_item = {
@@ -90,10 +89,7 @@ router.post('/projects', function(req, res) {
       }
     })
   })
-
-
 })
-
 
 router.get('/project/:id', function(req, res) {
   APQP.findById(req.params.id).populate('quoted_part').exec(function(err, foundAPQP) {
@@ -106,8 +102,8 @@ router.get('/project/:id', function(req, res) {
       })
     }
   })
-})s
-//New Datasheet request
+})
+//New Datasheet request page
 router.get('/project/:id/new_ds', function(req, res) {
   APQP.findById(req.params.id).populate('quoted_part').exec(function(err, foundAPQP) {
     if (err) {
@@ -116,5 +112,10 @@ router.get('/project/:id/new_ds', function(req, res) {
       res.render("projects/new_ds", {apqp: foundAPQP});
     }
   })
+})
+//Post datasheet request data to db
+router.post('/project/:id/new_ds', function (req,res) {
+  var datasheet = req.body.datasheet;
+  res.send(datasheet)
 })
 module.exports = router

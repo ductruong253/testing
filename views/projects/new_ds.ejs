@@ -6,13 +6,13 @@
     var dd = today.getDate()
     var mm = today.getMonth()
     var yyyy = today.getFullYear()
-    if (dd<10){
-      dd = '0'+dd
+    if (dd < 10) {
+      dd = '0' + dd
     }
-    if (mm<10){
-      mm = '0'+(mm)
+    if (mm < 10) {
+      mm = '0' + (mm)
     }
-    var date_string = (mm) + '/'+ dd + '/' + yyyy
+    var date_string = (mm) + '/' + dd + '/' + yyyy
     document.getElementsByClassName('default-date').value = date_string
     console.log(typeof date_string)
     console.log(date_string)
@@ -27,11 +27,13 @@
   <table class="table" style="text-align:center">
     <thead>
       <tr class="row">
-        <th class="col-sm-2" scope="col">Item</th>
-        <th class="col-sm-2" scope="col">Customer Part</th>
-        <th class="col-sm-2" scope="col">Assign to</th>
+        <th class="col-sm-1" scope="col">Item</th>
+        <th class="col-sm-1" scope="col">Customer Part</th>
+        <th class="col-sm-1" scope="col">Assign to</th>
         <th class="col-sm-2" scope="col">Input Date</th>
-        <th class="col-sm-2" scope="col">Due date</th>
+        <th class="col-sm-2" scope="col">Confirmed date</th>
+        <th class="col-sm-2" scope="col">Org. date</th>
+        <th class="col-sm-1" scope="col">Rev</th>
       </tr>
     </thead>
 
@@ -39,11 +41,13 @@
 
       <%apqp.quoted_part.forEach(function(element){%>
       <tr class="row">
-        <td class="col-sm-2"><%=element.quote_item%></td>
-        <td class="col-sm-2"><%=element.customer_part_number%></td>
-        <td class="col-sm-2"><input class="form-control" type="text" name="" value=""></td>
-        <td class="col-sm-2"><input class="form-control" type="date" onclick="defaultDate()" name="default-date" value=""></td>
-        <td class="col-sm-2"><input class="form-control" type="date" name="" value=""></td>
+        <td class="col-sm-1" scope="col"><input class="form-control-plaintext" type="text" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][quote_item]"readonly value="<%=element.quote_item%>"></td>
+        <td class="col-sm-1" scope="col"><input class="form-control-plaintext" type="text" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][customer_part_number]"readonly value="<%=element.customer_part_number%>"></td>
+        <td class="col-sm-1" scope="col"><input class="form-control" type="text" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][pic]" value=""required></td>
+        <td class="col-sm-2" scope="col"><input class="form-control" type="date" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][input_date]" value=""required></td>
+        <td class="col-sm-2" scope="col"><input class="form-control" type="date" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][confirmed_date]" value=""required></td>
+        <td class="col-sm-2" scope="col"><input class="form-control" type="date" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][org_date]" value=""></td>
+        <td class="col-sm-1" scope="col"><input class="input-group form-control" name="datasheet[<%=apqp.quoted_part.indexOf(element)%>][rev]" value="" required></td>
       </tr>
       <%})%>
     </tbody>
